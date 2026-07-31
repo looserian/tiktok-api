@@ -1,0 +1,18 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tiktok-story-api
+    ports:
+      - "8000:8000"
+    environment:
+      - API_KEYS=${API_KEYS:-default-secret-key}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - REQUEST_TIMEOUT=${REQUEST_TIMEOUT:-30}
+      - MAX_RETRIES=${MAX_RETRIES:-3}
+      - PLAYWRIGHT_HEADLESS=${PLAYWRIGHT_HEADLESS:-true}
+    volumes:
+      - ./data:/app/data
+      - ./screenshots:/app/screenshots
+    restart: unless-stopped
